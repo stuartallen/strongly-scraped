@@ -1,0 +1,30 @@
+# Git
+.git
+.gitignore
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.sln.docstates
+
+# Development settings
+appsettings.Development.json
+
+# Docker
+Dockerfile*
+docker-compose*
+
+# Misc
+README.md
+*.md 
