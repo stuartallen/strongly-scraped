@@ -1,0 +1,32 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+trim_trailing_whitespace = true
+
+[*.{cs,vb}]
+dotnet_diagnostic.SA1633.severity = none # File header
+dotnet_diagnostic.SA1200.severity = none # Using directives should be placed correctly
+dotnet_diagnostic.SA1101.severity = none # Prefix local calls with this
+dotnet_diagnostic.SA1309.severity = none # Field names should not begin with underscore
+dotnet_diagnostic.SA1600.severity = none # Elements should be documented
+dotnet_diagnostic.SA1516.severity = none # Elements should be separated by blank line
+
+# IDE0055: Fix formatting
+dotnet_diagnostic.IDE0055.severity = warning
+
+# IDE0065: Using directives placement
+dotnet_diagnostic.IDE0065.severity = warning
+
+# Naming rules
+dotnet_naming_rule.interface_should_begin_with_i.severity = warning
+dotnet_naming_rule.interface_should_begin_with_i.symbols = interface
+dotnet_naming_rule.interface_should_begin_with_i.style = begins_with_i
+
+dotnet_naming_symbols.interface.applicable_kinds = interface
+dotnet_naming_symbols.interface.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+
+dotnet_naming_style.begins_with_i.required_prefix = I
+dotnet_naming_style.begins_with_i.capitalization = pascal_case
