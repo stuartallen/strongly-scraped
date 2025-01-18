@@ -1,36 +1,36 @@
-using System.Security.Cryptography;
+using Api.Configuration;
+using Api.CronJobs;
+using Api.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<ScrapeSettings>(
+builder.Configuration.GetSection(nameof(ScrapeSettings)));
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddHostedService<Daily>();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<ScrapeSettings>();
+builder.Services.AddScoped<Scrape>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+app.MapGet("/scrape", async (Scrape scrape) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching",
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast(
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            RandomNumberGenerator.GetInt32(-20, 55),
-            summaries[RandomNumberGenerator.GetInt32(summaries.Length)]))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    await scrape.ScrapeThumbnailEventRowAsync().ConfigureAwait(false);
+    return "Scraping completed. Check the logs for results.";
+});
 
 app.Run();

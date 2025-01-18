@@ -14,6 +14,9 @@ dotnet_diagnostic.SA1309.severity = none # Field names should not begin with und
 dotnet_diagnostic.SA1600.severity = none # Elements should be documented
 dotnet_diagnostic.SA1516.severity = none # Elements should be separated by blank line
 
+# CA2007: Consider calling ConfigureAwait on the awaited task
+dotnet_diagnostic.CA2007.severity = none
+
 # IDE0055: Fix formatting
 dotnet_diagnostic.IDE0055.severity = warning
 
